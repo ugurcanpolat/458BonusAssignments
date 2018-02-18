@@ -51,3 +51,6 @@ sundays1Iter start end = sundays' start 1 0
         iter
           | dayOfWeek y m 1 == 1 = sundays' nextY nextM (acc + 1)
           | otherwise            = sundays' nextY nextM acc
+
+leap :: Integer -> Bool
+leap y = (y `mod` 4 == 0) && (y `mod` 100 /= 0) || (y `mod` 400 == 0)
