@@ -17,7 +17,7 @@ dayOfWeek y m' d = (d + t1 + k + t2 + t3 + 5 * j) `mod` 7
 
     t3 :: Integer
     t3 = j `div` 4
-    
+
 sundays1 :: Integer -> Integer -> Integer
 sundays1 start end = sundays' start 1 
   where 
@@ -60,3 +60,22 @@ daysInMonth y m
   | m == 2 = if leap y then 29 else 28
   | (m == 4) || (m == 6) || (m == 9) || (m == 11) = 30
   | otherwise = 31
+
+sundays2 :: Integer -> Integer -> Integer
+sundays2 start end = sundays' start 1 2 0
+  where
+    sundays' :: Integer -> Integer -> Integer -> Integer -> Integer
+    sundays' y m wd acc
+      | y > end   = acc
+      | otherwise = iter
+      where
+        nextY 
+          | m >= 12   = y + 1
+          | otherwise = y
+        nextM 
+          | m >= 12   = 1
+          | otherwise = m + 1
+        nextWD = wd + (daysInMonth y m `mod` 7)
+        iter 
+          | wd `mod` 7 == 0 = sundays' nextY nextM nextWD (acc + 1)
+          | otherwise       = sundays' nextY nextM nextWD acc
