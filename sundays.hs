@@ -1,3 +1,9 @@
+{- @Author
+   Student Name: Ugurcan Polat
+   Student ID : 150140117
+   Date: 26.02.2018
+-}
+
 dayOfWeek :: Integer -> Integer -> Integer -> Integer
 dayOfWeek y m' d = (d + t1 + k + t2 + t3 + 5 * j) `mod` 7
   where 
