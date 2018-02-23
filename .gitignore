@@ -1,4 +1,4 @@
-# Exclue macOS directory service files
+# Exclude macOS directory service files
 .DS_Store
 
 # Exclude assignment file
