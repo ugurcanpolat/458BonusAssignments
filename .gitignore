@@ -1,2 +1,5 @@
-# Ignore macOS directory service files
+# Exclue macOS directory service files
 .DS_Store
+
+# Exclude assignment file
+*.pdf 
