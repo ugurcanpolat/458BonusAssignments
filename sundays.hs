@@ -81,7 +81,7 @@ sundays2 start end = sundays' start 1 2 0
         nextM 
           | m >= 12   = 1
           | otherwise = m + 1
-        nextWD = wd + (daysInMonth y m `mod` 7)
+        nextWD = wd + daysInMonth y m `mod` 7
         iter 
           | wd `mod` 7 == 0 = sundays' nextY nextM nextWD (acc + 1)
           | otherwise       = sundays' nextY nextM nextWD acc
