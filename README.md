@@ -1,4 +1,4 @@
-# Bonus Assignment 1: CountingSundays
+# Bonus 1: Counting Sundays (Project Euler: Problem 19)
 Haskell implementation that finds how many Sundays fell on the first of the month during the 
 twentieth century (1 Jan 1901 to 31 Dec 2000).
 
