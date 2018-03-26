@@ -1,7 +1,7 @@
 {- @Author
    Student Name: Ugurcan Polat
    Student ID : 150140117
-   Date: 26.02.2018
+   Date: 09.04.2018
 -}
 
 data Color = Red | Black
@@ -24,3 +24,9 @@ cardColor (Card suit _) = case suit of
   Spades   -> Black
   Diamonds -> Red
   Hearts   -> Red
+  
+cardValue :: Card -> Int
+cardValue (Card _ rank) = case rank of
+  Num n -> n
+  Ace   -> 11
+  _     -> 10
