@@ -22,8 +22,7 @@ cardColor :: Card -> Color
 cardColor (Card suit _) = case suit of 
   Clubs    -> Black
   Spades   -> Black
-  Diamonds -> Red
-  Hearts   -> Red
+  _        -> Red
   
 cardValue :: Card -> Int
 cardValue (Card _ rank) = case rank of
