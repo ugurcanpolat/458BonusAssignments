@@ -5,16 +5,16 @@
 -}
 
 data Color = Red | Black
-  deriving (Show)
+  deriving (Show, Eq)
   
 data Suit = Clubs | Diamonds | Hearts | Spades
-  deriving (Show)
+  deriving (Show, Eq)
   
 data Rank = Num Int | Jack | Queen | King | Ace
-  deriving (Show)
+  deriving (Show, Eq)
   
 data Card = Card { suit :: Suit, rank :: Rank }
-  deriving (Show)
+  deriving (Show, Eq)
   
 data Move = Draw | Discard Card
 
@@ -29,3 +29,12 @@ cardValue (Card _ rank) = case rank of
   Num n -> n
   Ace   -> 11
   _     -> 10
+
+removeCard :: [Card] -> Card -> [Card]
+removeCard cs c = rC cs c []
+  where
+    rC :: [Card] -> Card -> [Card] -> [Card]
+    rC [] _ _ = error "Card not found"
+    rC (c':cs') c head
+      | c' == c   = head ++ cs'
+      | otherwise = rC cs' c (head ++ [c'])
