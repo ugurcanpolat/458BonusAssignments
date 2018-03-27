@@ -44,3 +44,10 @@ allSameColor cs = case cs of
   []           -> True
   [_]          -> True
   c1:cs@(c2:_) -> cardColor c1 == cardColor c2 && allSameColor cs
+  
+sumCards :: [Card] -> Int
+sumCards cs = sum' cs 0 
+  where 
+    sum' cs acc = case cs of 
+      []    -> acc
+      c:cs' -> sum' cs' (acc + cardValue c)
