@@ -38,3 +38,9 @@ removeCard cs c = rC cs c []
     rC (c':cs') c head
       | c' == c   = head ++ cs'
       | otherwise = rC cs' c (head ++ [c'])
+
+allSameColor :: [Card] -> Bool
+allSameColor cs = case cs of
+  []           -> True
+  [_]          -> True
+  c1:cs@(c2:_) -> cardColor c1 == cardColor c2 && allSameColor cs
