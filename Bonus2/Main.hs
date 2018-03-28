@@ -93,6 +93,7 @@ convertRank c
       | otherwise = Num d
       where 
         d = digitToInt c
+        
     chr :: Char -> Rank
     chr c
       | c == 't' || c == 'T'  = Num 10
@@ -106,3 +107,17 @@ convertCard s r = Card {suit = s', rank = r'}
   where
     s' = convertSuit s
     r' = convertRank r
+
+readCards :: IO [Card]
+readCards = helper []
+  where
+    helper cards = do line <- getLine
+                      if line == "."
+                         then return cards
+                         else helper (cards ++ [parse line])
+      where
+        parse :: String -> Card
+        parse l = case l of 
+          [s,r]     -> convertCard s r
+          otherwise -> error "wrong input"
+      
