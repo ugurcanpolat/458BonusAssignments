@@ -100,3 +100,9 @@ convertRank c
       | c == 'q' || c == 'Q'  = Queen
       | c == 'k' || c == 'K'  = King
       | otherwise = error "rank is unknown"
+
+convertCard :: Char -> Char -> Card
+convertCard s r = Card {suit = s', rank = r'}
+  where
+    s' = convertSuit s
+    r' = convertRank r
