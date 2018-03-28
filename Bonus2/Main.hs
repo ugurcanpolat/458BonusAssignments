@@ -125,3 +125,17 @@ convertMove :: Char -> Char -> Char -> Move
 convertMove m s r 
   | m == 'd' || m == 'D' = Draw
   | m == 'r' || m == 'R' = Discard (convertCard s r)
+
+readMoves :: IO [Move]
+readMoves = helper [] 
+  where
+    helper moves = do line <- getLine
+                      if line == "."
+                         then return moves
+                         else helper (moves ++ [parse line])
+      where
+        parse :: String -> Move
+        parse l = case l of
+          [m]       -> convertMove m ' ' ' '
+          [m,s,r]   -> convertMove m s r
+          otherwise -> error "wrong input"
