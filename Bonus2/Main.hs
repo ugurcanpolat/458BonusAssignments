@@ -17,6 +17,7 @@ data Card = Card { suit :: Suit, rank :: Rank }
   deriving (Show, Eq)
 
 data Move = Draw | Discard Card
+  deriving (Show, Eq)
 
 cardColor :: Card -> Color
 cardColor (Card suit _) = case suit of 
@@ -34,7 +35,7 @@ removeCard :: [Card] -> Card -> [Card]
 removeCard cs c = rC cs c []
   where
     rC :: [Card] -> Card -> [Card] -> [Card]
-    rC [] _ _ = error "Card not found"
+    rC [] _ _ = error "card not in list"
     rC (c':cs') c head
       | c' == c   = head ++ cs'
       | otherwise = rC cs' c (head ++ [c'])
@@ -61,3 +62,22 @@ score cs g
       | sum > g   = 3 * (sum - g)
       | otherwise = g - sum
     sum = sumCards cs
+    
+{-data State = Initial | Playing | End -- ???
+
+runGame :: [Card] -> [Move] -> Int -> Int
+runGame cl ml g = 
+  where
+-}
+
+-- Part-2
+
+convertSuit :: Char -> Suit
+convertSuit c
+  | c == 'c' || c == 'C' = Clubs
+  | c == 'd' || c == 'D' = Diamonds
+  | c == 'h' || c == 'H' = Hearts
+  | c == 's' || c == 'S' = Spades
+  | otherwise            = error "suit is unknown"
+
+    
