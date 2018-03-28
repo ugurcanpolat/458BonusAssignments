@@ -125,6 +125,7 @@ convertMove :: Char -> Char -> Char -> Move
 convertMove m s r 
   | m == 'd' || m == 'D' = Draw
   | m == 'r' || m == 'R' = Discard (convertCard s r)
+  | otherwise            = error "wrong move"
 
 readMoves :: IO [Move]
 readMoves = helper [] 
