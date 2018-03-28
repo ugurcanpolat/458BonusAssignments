@@ -4,6 +4,8 @@
    Date: 09.04.2018
 -}
 
+import Data.Char
+
 data Color = Red | Black
   deriving (Show, Eq)
 
@@ -80,4 +82,20 @@ convertSuit c
   | c == 's' || c == 'S' = Spades
   | otherwise            = error "suit is unknown"
 
-    
+convertRank :: Char -> Rank
+convertRank c 
+  | isDigit c = digit c
+  | otherwise = chr c
+  where
+    digit :: Char -> Rank
+    digit c 
+      | d == 1    = Ace
+      | otherwise = Num d
+      where 
+        d = digitToInt c
+    chr :: Char -> Rank
+    chr c
+      | c == 't' = Num 10
+      | c == 'j' = Jack
+      | c == 'q' = Queen
+      | c == 'k' = King
