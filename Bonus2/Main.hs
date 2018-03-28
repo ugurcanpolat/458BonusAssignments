@@ -95,7 +95,8 @@ convertRank c
         d = digitToInt c
     chr :: Char -> Rank
     chr c
-      | c == 't' = Num 10
-      | c == 'j' = Jack
-      | c == 'q' = Queen
-      | c == 'k' = King
+      | c == 't'  = Num 10
+      | c == 'j'  = Jack
+      | c == 'q'  = Queen
+      | c == 'k'  = King
+      | otherwise = error "rank is unknown"
