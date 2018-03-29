@@ -64,13 +64,8 @@ score cs g
       | sum > g   = 3 * (sum - g)
       | otherwise = g - sum
     sum = sumCards cs
-    
-{-data State = Initial | Playing | End -- ???
 
-runGame :: [Card] -> [Move] -> Int -> Int
-runGame cl ml g = 
-  where
--}
+data State = [[Card],[Card]]
 
 -- Part-2
 
