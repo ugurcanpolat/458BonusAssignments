@@ -67,6 +67,26 @@ score cs g
 
 type State = ([Card],[Card])
 
+runGame :: [Card] -> [Move] -> Int -> Int
+runGame cs ms g = helper (cs, []) ms g
+  where
+    helper :: State -> [Move] -> Int -> Int
+    helper (cs,hs) ms g = case ms of 
+      []       -> score hs g
+      (m':ms') -> case (makeMove (cs,hs) m' g) of
+        ([],[]) -> score hs g
+        _       -> helper (makeMove (cs,hs) m' g) ms' g
+      where
+        makeMove :: State -> Move -> Int -> State
+        makeMove (cs,hs) m g = case m of
+          Draw      -> if cs == [] || sumCards (c':hs) > g 
+                         then ([],[])
+                         else (cs',(c':hs))
+          Discard c -> (cs,(removeCard hs c))
+          where
+            c'  = head cs
+            cs' = tail cs
+
 -- Part-2
 
 convertSuit :: Char -> Suit
