@@ -1,3 +1,6 @@
+# Bonus 2: Custom Solitaire
+Haskell implementation that tracks the progress of a card game, Custom Solitaire, invented just for this exercise.
+
 # Bonus 1: Counting Sundays (Project Euler: Problem 19)
 Haskell implementation that finds how many Sundays fell on the first of the month during the 
 twentieth century (1 Jan 1901 to 31 Dec 2000).
