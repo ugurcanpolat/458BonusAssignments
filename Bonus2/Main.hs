@@ -65,7 +65,7 @@ score cs g
       | otherwise = g - sum
     sum = sumCards cs
 
-data State = [[Card],[Card]]
+type State = ([Card],[Card])
 
 -- Part-2
 
