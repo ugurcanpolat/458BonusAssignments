@@ -4,22 +4,22 @@
    Date: 09.04.2018
 -}
 
-import Data.Char
+import Data.Char -- eq for chars
 
 data Color = Red | Black
-  deriving (Show, Eq)
+  deriving (Show, Eq) -- show for debugging
 
 data Suit = Clubs | Diamonds | Hearts | Spades
-  deriving (Show, Eq)
+  deriving (Show, Eq) -- show for debugging
 
 data Rank = Num Int | Jack | Queen | King | Ace
-  deriving (Show, Eq)
+  deriving (Show, Eq) -- show for debugging
 
 data Card = Card { suit :: Suit, rank :: Rank }
-  deriving (Show, Eq)
+  deriving (Show, Eq) -- show for debugging
 
 data Move = Draw | Discard Card
-  deriving (Show, Eq)
+  deriving (Show, Eq) -- show for debugging
 
 cardColor :: Card -> Color
 cardColor (Card suit _) = case suit of 
@@ -65,7 +65,7 @@ score cs g
       | otherwise = g - sum
     sum = sumCards cs
 
-type State = ([Card],[Card])
+type State = ([Card],[Card]) -- List of cards and held-cards
 
 runGame :: [Card] -> [Move] -> Int -> Int
 runGame cs ms g = helper (cs, []) ms g
@@ -77,12 +77,12 @@ runGame cs ms g = helper (cs, []) ms g
         ([],[]) -> score hs g
         _       -> helper (makeMove (cs,hs) m' g) ms' g
       where
-        makeMove :: State -> Move -> Int -> State
+        makeMove :: State -> Move -> Int -> State -- find next state
         makeMove (cs,hs) m g = case m of
           Draw      -> if cs == [] || sumCards (c':hs) > g 
-                         then ([],[])
-                         else (cs',(c':hs))
-          Discard c -> (cs,(removeCard hs c))
+                         then ([],[]) -- game is over
+                         else (cs',(c':hs)) -- next state
+          Discard c -> (cs,(removeCard hs c)) -- next state
           where
             c'  = head cs
             cs' = tail cs
