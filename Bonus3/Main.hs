@@ -15,7 +15,7 @@ type Sentence  = [Word]
 type CharCount = [(Char,Int)]
 
 wordCharCounts :: Word -> CharCount
-wordCharCounts = map (\c -> (head c, length c)) . group . map toLower
+wordCharCounts = toList . fromListWith (+) . map (\c -> (head c, length c)) . group . map toLower
 
 main = do args <- getArgs
           let sentence = head args
