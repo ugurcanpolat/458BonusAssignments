@@ -6,7 +6,7 @@
 
 import Prelude hiding (Word)
 import Data.Char 
-import Data.Map hiding (map)
+import Data.Map hiding (map,filter,foldr)
 import Data.List
 import System.Environment
 
@@ -27,6 +27,16 @@ dictWordsByCharCounts = toList . fromListWith (++) . map (\(w,cc) -> (cc, [w]))
 
 wordAnagrams :: Word -> [(CharCount,[Word])] -> [Word]
 wordAnagrams w ccs = head [ws | (cc,ws) <- ccs, cc == wordCharCounts w]
+
+charCountsSubsets :: CharCount -> [CharCount]
+charCountsSubsets = map wordCharCounts . wordSubset . createWord
+  where
+    wordSubset :: Word -> [Word]
+    wordSubset [] = [[]]
+    wordSubset (c:cs) = nub ([c:cs' | cs' <- wordSubset cs] ++ wordSubset cs)
+
+    createWord :: CharCount -> Word
+    createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
 
 main = do args <- getArgs
           let sentence = head args
