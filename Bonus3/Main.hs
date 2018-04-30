@@ -11,11 +11,13 @@ import Data.List
 import System.Environment
 
 type Word      = [Char]
-type Sentence  = [Word]
 type CharCount = [(Char,Int)]
 
 wordCharCounts :: Word -> CharCount
 wordCharCounts = toList . fromListWith (+) . map (\c -> (head c, length c)) . group . map toLower
+
+sentenceCharCounts :: [Word] -> [CharCount]
+sentenceCharCounts = map wordCharCounts
 
 main = do args <- getArgs
           let sentence = head args
