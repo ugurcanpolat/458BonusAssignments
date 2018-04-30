@@ -19,6 +19,9 @@ wordCharCounts = toList . fromListWith (+) . map (\c -> (head c, length c)) . gr
 sentenceCharCounts :: [Word] -> [CharCount]
 sentenceCharCounts = map wordCharCounts
 
+dictCharCounts :: [Word] -> [(Word,CharCount)]
+dictCharCounts = map (\w -> (w, wordCharCounts w))
+
 main = do args <- getArgs
           let sentence = head args
           putStrLn sentence
