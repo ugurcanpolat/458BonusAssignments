@@ -38,6 +38,9 @@ charCountsSubsets = map wordCharCounts . wordSubset . createWord
     createWord :: CharCount -> Word
     createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
 
+subtractCounts :: CharCount -> CharCount -> CharCount
+subtractCounts a b = [(c,n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n > 0]
+
 main = do args <- getArgs
           let sentence = head args
           putStrLn sentence
