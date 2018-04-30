@@ -41,6 +41,16 @@ charCountsSubsets = map wordCharCounts . wordSubset . createWord
 subtractCounts :: CharCount -> CharCount -> CharCount
 subtractCounts a b = [(c,n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n > 0]
 
+parseString :: String -> [Word]
+parseString s = readUntilSpace s [""]
+  where
+    readUntilSpace :: String -> [Word] -> [Word]
+    readUntilSpace s acc@(a:ac) = case s of 
+      []     -> acc
+      (c:cs) -> if c == ' ' 
+                  then readUntilSpace cs ([""] ++ acc)
+                else readUntilSpace cs ([a ++ [c]] ++ ac)
+
 main = do args <- getArgs
-          let sentence = head args
-          putStrLn sentence
+          let str = head args
+          let sentence = parseString str
