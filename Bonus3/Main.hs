@@ -51,6 +51,14 @@ parseString s = readUntilSpace s [""]
                   then readUntilSpace cs ([""] ++ acc)
                 else readUntilSpace cs ([a ++ [c]] ++ ac)
 
+printAnagrams :: [[Word]] -> IO()
+printAnagrams s = putStrLn $ init $ unlines $ printSentence s []
+  where
+    printSentence :: [[Word]] -> [String] -> [String]
+    printSentence s acc = case s of 
+      []       -> acc
+      (s':ss') -> printSentence ss' (acc ++ [foldr (\a b -> a ++ " " ++ b) "" [a | a <- s']])
+
 main = do args <- getArgs
           let str = head args
           let sentence = parseString str
