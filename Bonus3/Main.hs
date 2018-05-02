@@ -46,6 +46,12 @@ createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
 subtractCounts :: CharCount -> CharCount -> CharCount
 subtractCounts a b = [(c,abs n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n /= 0]
 
+lengthCharCount :: CharCount -> Int
+lengthCharCount cc = foldr (\a b -> a + b) 0 [n | (_,n) <- cc]
+
+lengthWords :: [Word] -> Int
+lengthWords words = length $ foldr (\a b -> a ++ b) [] words
+
 parseString :: String -> [Word]
 parseString s = readUntilSpace s [""]
   where
