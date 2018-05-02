@@ -35,8 +35,8 @@ charCountsSubsets = map wordCharCounts . wordSubset . createWord
     wordSubset [] = [[]]
     wordSubset (c:cs) = nub ([c:cs' | cs' <- wordSubset cs] ++ wordSubset cs)
 
-    createWord :: CharCount -> Word
-    createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
+createWord :: CharCount -> Word
+createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
 
 subtractCounts :: CharCount -> CharCount -> CharCount
 subtractCounts a b = [(c,n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n > 0]
