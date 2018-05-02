@@ -74,12 +74,14 @@ runGame cs ms g = helper (cs, []) ms g
     helper (cs,hs) ms g = case ms of 
       []       -> score hs g
       (m':ms') -> case (makeMove (cs,hs) m' g) of
-        ([],[]) -> score hs g
-        _       -> helper (makeMove (cs,hs) m' g) ms' g
+        ([],[])  -> score hs g
+        _        -> if sumCards hs > g
+                      then score hs g
+                      else helper (makeMove (cs,hs) m' g) ms' g
       where
         makeMove :: State -> Move -> Int -> State -- find next state
         makeMove (cs,hs) m g = case m of
-          Draw      -> if cs == [] || sumCards (c':hs) > g 
+          Draw      -> if cs == []
                          then ([],[]) -- game is over
                          else (cs',(c':hs)) -- next state
           Discard c -> (cs,(removeCard hs c)) -- next state
