@@ -39,7 +39,7 @@ createWord :: CharCount -> Word
 createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
 
 subtractCounts :: CharCount -> CharCount -> CharCount
-subtractCounts a b = [(c,n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n > 0]
+subtractCounts a b = [(c,abs n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n /= 0]
 
 parseString :: String -> [Word]
 parseString s = readUntilSpace s [""]
