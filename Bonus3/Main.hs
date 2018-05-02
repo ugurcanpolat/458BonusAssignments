@@ -26,7 +26,12 @@ dictWordsByCharCounts :: [(Word,CharCount)] -> [(CharCount,[Word])]
 dictWordsByCharCounts = toList . fromListWith (++) . map (\(w,cc) -> (cc, [w]))
 
 wordAnagrams :: Word -> [(CharCount,[Word])] -> [Word]
-wordAnagrams w ccs = head [ws | (cc,ws) <- ccs, cc == wordCharCounts w]
+wordAnagrams w ccs = case result of 
+    [] -> []
+    _  -> head result
+  where
+    comp = sortBy (\(a,_) (b,_) -> compare a b) $ wordCharCounts w
+    result = [ws | (cc,ws) <- ccs, sortBy (\(a,_) (b,_) -> compare a b) cc == comp]
 
 charCountsSubsets :: CharCount -> [CharCount]
 charCountsSubsets = map wordCharCounts . wordSubset . createWord
