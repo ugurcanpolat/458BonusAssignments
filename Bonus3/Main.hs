@@ -46,6 +46,42 @@ createWord cc = foldr (\a b -> a ++ b) "" [replicate n c | (c,n) <- cc]
 subtractCounts :: CharCount -> CharCount -> CharCount
 subtractCounts a b = [(c,abs n) | (c,n) <- toList (fromListWith (-) (a ++ b)), n /= 0]
 
+sentenceAnagrams :: [Word] -> [(CharCount,[Word])] -> [[Word]]
+sentenceAnagrams sent dict = helper sentsubs sentcc [] [[]]
+  where
+    sentcc   = toList $ fromListWith (+) $ foldr (\a b -> a ++ b) [] [a | a <- sentenceCharCounts sent]
+    sentsubs = charCountsSubsets sentcc
+    lengBase = lengthCharCount sentcc
+
+    helper :: [CharCount] -> CharCount -> [[Word]] -> [[Word]] -> [[Word]]
+    helper subsets cc anagrams acc = case subsets of
+        []        -> anagrams
+        (ss:sses) -> if ss == [] then helper sses cc anagrams acc
+                                 else helper sses cc anagrams' acc
+        where
+          s   = if subsets == [] then [] else head subsets
+          ses = if subsets == [] then [] else tail subsets
+          
+          an = (wordAnagrams (createWord s) dict) 
+
+          acc' = case an of 
+            [] -> [[]]
+            _  -> [x ++ [y] | x <- acc, y <- an]
+          
+          subsets' = case an of 
+            []    -> ses
+            (a:_) -> charCountsSubsets cc'
+
+          cc' = case an of           
+            []    -> cc
+            (a:_) -> subtractCounts cc $ wordCharCounts a
+
+          anagrams' = case acc' of 
+            [[]]  -> anagrams
+            (a:_) -> if lengthWords a == lengBase && an /= []
+                       then anagrams ++ acc'
+                       else helper subsets' cc' anagrams acc'
+
 lengthCharCount :: CharCount -> Int
 lengthCharCount cc = foldr (\a b -> a + b) 0 [n | (_,n) <- cc]
 
