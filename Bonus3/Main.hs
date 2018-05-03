@@ -6,7 +6,7 @@
 
 import Prelude hiding (Word)
 import Data.Char 
-import Data.Map hiding (map,filter,foldr)
+import Data.Map hiding (map,foldr)
 import Data.List
 import System.Environment
 
@@ -96,7 +96,7 @@ parseString s = readUntilSpace s [""]
       []     -> acc
       (c:cs) -> if c == ' ' 
                   then readUntilSpace cs ([""] ++ acc)
-                else readUntilSpace cs ([a ++ [c]] ++ ac)
+                  else readUntilSpace cs ([a ++ [c]] ++ ac)
 
 printAnagrams :: [[Word]] -> IO()
 printAnagrams s = putStrLn $ init $ unlines str
