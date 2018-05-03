@@ -99,8 +99,12 @@ parseString s = readUntilSpace s [""]
                 else readUntilSpace cs ([a ++ [c]] ++ ac)
 
 printAnagrams :: [[Word]] -> IO()
-printAnagrams s = putStrLn $ init $ unlines $ printSentence s []
+printAnagrams s = putStrLn $ init $ unlines str
   where
+    str = case s of 
+      [] -> ["*** No anagram found in the dictionary ***"]
+      _  -> printSentence s []
+
     printSentence :: [[Word]] -> [String] -> [String]
     printSentence s acc = case s of 
       []       -> acc
