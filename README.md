@@ -1,3 +1,6 @@
+# Bonus 3: Anagrams
+Haskell implementation that solves combinatorial problem of finding all the anagrams of a sentence.
+
 # Bonus 2: Custom Solitaire
 Haskell implementation that tracks the progress of a card game, Custom Solitaire, invented just for this exercise.
 
