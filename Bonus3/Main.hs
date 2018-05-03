@@ -108,4 +108,9 @@ printAnagrams s = putStrLn $ init $ unlines $ printSentence s []
 
 main = do args <- getArgs
           let str = head args
+          file <- readFile "words.txt"
+          let d = lines file
           let sentence = parseString str
+          let dictionary = dictWordsByCharCounts $ dictCharCounts d
+          let anagrams = sentenceAnagrams sentence dictionary
+          printAnagrams anagrams
