@@ -23,7 +23,7 @@ insert (c:cs) (Trie e m) = case M.lookup c m of
     Just t  -> Trie e $ M.insert c (insert cs t) m
 
 insertList :: [Word] -> Trie
-insertList = undefined
+insertList = foldr insert empty 
 
 search :: Word -> Trie -> Bool
 search = undefined
