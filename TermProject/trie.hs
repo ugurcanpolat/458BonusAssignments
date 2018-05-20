@@ -26,7 +26,10 @@ insertList :: [Word] -> Trie
 insertList = foldr insert empty 
 
 search :: Word -> Trie -> Bool
-search = undefined
+search [] (Trie e _)     = e
+search (c:cs) (Trie _ m) = case M.lookup c m of 
+    Nothing -> False
+    Just t  -> search cs t
 
 getWords :: Trie -> [Word]
 getWords = undefined
