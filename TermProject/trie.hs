@@ -65,3 +65,11 @@ prefix w t = if null found then Nothing else Just found
     found = [x | x <- ws, w == take (length w) x, w /= x]
 
 data Action = Add Word | Search Word | Find Word | Print | Exit
+
+convertAction :: Char -> Word -> Action
+convertAction c w 
+  | c == 'a' || c == 'A' = Add w
+  | c == 's' || c == 'S' = Search w
+  | c == 'f' || c == 'F' = Find w
+  | c == 'p' || c == 'P' = Print
+  | c == 'e' || c == 'E' = Exit
