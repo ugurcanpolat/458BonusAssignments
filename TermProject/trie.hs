@@ -10,7 +10,7 @@ import System.Environment
 import System.IO
 import Prelude hiding (Word)
 
-data Trie = Trie {end :: Bool, children :: M.Map Char Trie} deriving (Show)
+data Trie = Trie {end :: Bool, children :: M.Map Char Trie} deriving (Eq,Show)
 type Word = String
 
 empty :: Trie
@@ -32,7 +32,31 @@ search (c:cs) (Trie _ m) = case M.lookup c m of
     Just t  -> search cs t
 
 getWords :: Trie -> [Word]
-getWords = undefined
+getWords (Trie _ m) = traverser (M.toList m) [] []
+  where
+    traverser :: [(Char,Trie)] -> [Word] -> [Word] -> [Word]
+    traverser [] _ acc = acc
+    traverser l wAcc acc
+      | e == True = if M.null m' == True
+                       then traverser ts ws (acc ++ [w])
+                       else traverser newList ((replicate size w) ++ ws) (acc ++ [w])
+      | otherwise = traverser newList ((replicate size w) ++ ws) acc
+        where
+            t  = head l
+            ts = if null l then [] else tail l 
+            c  = fst t
+            tr = snd t
+
+            getMap (Trie _ m) = m
+            getEnd (Trie e _) = e
+
+            e  = getEnd tr
+            m' = getMap tr
+
+            size = M.size m'
+            newList = M.toList m' ++ ts
+            w   = if null wAcc then [c] else head wAcc ++ [c]
+            ws  = if null wAcc then [] else tail wAcc
 
 prefix :: Word -> Trie -> Maybe [Word]
 prefix = undefined
