@@ -64,7 +64,7 @@ prefix w t = if null found then Nothing else Just found
     ws    = getWords t
     found = [x | x <- ws, w == take (length w) x, w /= x]
 
-data Action = Add Word | Search Word | Find Word | Print | Exit
+data Action = Add Word | Search Word | Find Word | Print | Exit deriving (Show)
 
 convertAction :: Char -> Word -> Action
 convertAction c w 
@@ -74,3 +74,18 @@ convertAction c w
   | c == 'p' || c == 'P' = Print
   | c == 'e' || c == 'E' = Exit
   | otherwise = error "Action is not defined!"
+
+getInput :: IO Action
+getInput = do putStrLn "a) Add Word"
+              putStrLn "s) Search Word"
+              putStrLn "f) Find words with prefix"
+              putStrLn "p) Print all words"
+              putStrLn "e) Exit"
+              putStrLn "Enter the action:"
+              a <- getLine
+              let c = if null a then 'z' else head a
+              if c `elem` "aA" || c `elem` "sS" || c `elem` "fF" 
+                then do putStrLn "Enter word/prefix:"
+                        wp <- getLine
+                        return (convertAction c wp)
+                else return (convertAction c [])
