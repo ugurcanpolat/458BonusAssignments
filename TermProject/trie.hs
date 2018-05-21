@@ -59,4 +59,7 @@ getWords (Trie _ m) = traverser (M.toList m) [] []
             ws  = if null wAcc then [] else tail wAcc
 
 prefix :: Word -> Trie -> Maybe [Word]
-prefix = undefined
+prefix w t = if null found then Nothing else Just found
+  where
+    ws    = getWords t
+    found = [x | x <- ws, w == take (length w) x, w /= x]
