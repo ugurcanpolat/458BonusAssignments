@@ -73,3 +73,4 @@ convertAction c w
   | c == 'f' || c == 'F' = Find w
   | c == 'p' || c == 'P' = Print
   | c == 'e' || c == 'E' = Exit
+  | otherwise = error "Action is not defined!"
