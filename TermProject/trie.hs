@@ -1,7 +1,7 @@
 {- @Author
    Student Name: Ugurcan Polat
    Student ID : 150140117
-   Date: 21.05.2018
+   Date: 22.05.2018
 -}
 
 import qualified Data.Map as M
@@ -63,3 +63,5 @@ prefix w t = if null found then Nothing else Just found
   where
     ws    = getWords t
     found = [x | x <- ws, w == take (length w) x, w /= x]
+
+data Action = Add Word | Search Word | Find Word | Print | Exit
