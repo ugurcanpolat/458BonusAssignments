@@ -10,7 +10,7 @@ import System.Environment
 import System.IO
 import Prelude hiding (Word)
 
-data Trie = Trie {end :: Bool, children :: M.Map Char Trie} deriving (Eq,Show)
+data Trie = Trie {end :: Bool, children :: M.Map Char Trie} deriving (Eq)
 type Word = String
 
 empty :: Trie
@@ -64,7 +64,7 @@ prefix w t = if null found then Nothing else Just found
     ws    = getWords t
     found = [x | x <- ws, w == take (length w) x, w /= x]
 
-data Action = Add Word | Search Word | Find Word | Print | Exit deriving (Show)
+data Action = Add Word | Search Word | Find Word | Print | Exit
 
 convertAction :: Char -> Word -> Action
 convertAction c w 
