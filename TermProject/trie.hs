@@ -67,12 +67,12 @@ prefix w t = if null found then Nothing else Just found
 data Action = Add Word | Search Word | Find Word | Print | Exit
 
 convertAction :: Char -> Word -> Action
-convertAction c w 
-  | c == 'a' || c == 'A' = Add w
-  | c == 's' || c == 'S' = Search w
-  | c == 'f' || c == 'F' = Find w
-  | c == 'p' || c == 'P' = Print
-  | c == 'e' || c == 'E' = Exit
+convertAction c w
+  | c `elem` "aA" = Add w
+  | c `elem` "sS" = Search w
+  | c `elem` "fF" = Find w
+  | c `elem` "pP" = Print
+  | c `elem` "eE" = Exit
   | otherwise = error "Action is not defined!"
 
 getInput :: IO Action
@@ -83,7 +83,7 @@ getInput = do putStrLn "a) Add Word"
               putStrLn "e) Exit"
               putStrLn "Enter the action:"
               a <- getLine
-              let c = if null a then 'z' else head a
+              let c = if null a then 'e' else head a -- 'e' means exit
               if c `elem` "aA" || c `elem` "sS" || c `elem` "fF" 
                 then do putStrLn "Enter word/prefix:"
                         wp <- getLine
@@ -108,10 +108,10 @@ doAction a t = case a of
     Print    -> do putStrLn "List of words in disctionary:"
                    printWords $ getWords t
                    return t
-    Exit     -> return empty
+    Exit     -> return empty  
   where
     printWords :: [Word] -> IO ()
-    printWords ws = putStrLn $ unlines ws
+    printWords = putStrLn . unlines
 
 runProgram :: Trie -> IO ()
 runProgram t = if t == empty 
