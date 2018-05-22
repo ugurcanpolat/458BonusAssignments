@@ -112,3 +112,10 @@ doAction a t = case a of
   where
     printWords :: [Word] -> IO ()
     printWords ws = putStrLn $ unlines ws
+
+runProgram :: Trie -> IO ()
+runProgram t = if t == empty 
+                 then return ()
+                 else do action <- getInput
+                         t' <- doAction action t
+                         runProgram t'
