@@ -92,7 +92,7 @@ getInput = do putStrLn "a) Add Word"
 
 doAction :: Action -> Trie -> IO Trie
 doAction a t = case a of 
-    Add w    -> do putStrLn "New word is added!" 
+    Add w    -> do putStrLn "New word is added!\n" 
                    return $ insert w t
     Search w -> if search w t 
                   then do putStrLn "Exists in dictionary!\n" 
