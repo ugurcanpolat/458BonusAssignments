@@ -89,3 +89,23 @@ getInput = do putStrLn "a) Add Word"
                         wp <- getLine
                         return (convertAction c wp)
                 else return (convertAction c [])
+
+doAction :: Action -> Trie -> IO Trie
+doAction a t = case a of 
+    Add w    -> return $ insert w t
+    Search w -> if search w t 
+                  then do putStrLn "Exists in dictionary!" 
+                          return t
+                  else do putStrLn "NOT exist!"
+                          return t
+    Find w   -> case prefix w t of 
+                  Nothing -> do putStrLn "No words found with that prefix!"
+                                return t
+                  Just ws -> do printWords ws
+                                return t
+    Print    -> do printWords $ getWords t
+                   return t
+    Exit     -> return empty
+  where
+    printWords :: [Word] -> IO ()
+    printWords ws = putStrLn $ unlines ws
