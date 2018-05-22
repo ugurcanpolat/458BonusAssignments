@@ -94,16 +94,18 @@ doAction :: Action -> Trie -> IO Trie
 doAction a t = case a of 
     Add w    -> return $ insert w t
     Search w -> if search w t 
-                  then do putStrLn "Exists in dictionary!" 
+                  then do putStrLn "Exists in dictionary!\n" 
                           return t
-                  else do putStrLn "NOT exist!"
+                  else do putStrLn "NOT exist!\n"
                           return t
     Find w   -> case prefix w t of 
-                  Nothing -> do putStrLn "No words found with that prefix!"
+                  Nothing -> do putStrLn "No words found with that prefix!\n"
                                 return t
-                  Just ws -> do printWords ws
+                  Just ws -> do putStrLn "Found words:"
+                                printWords ws
                                 return t
-    Print    -> do printWords $ getWords t
+    Print    -> do putStrLn "List of words in disctionary:"
+                   printWords $ getWords t
                    return t
     Exit     -> return empty
   where
