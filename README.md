@@ -1,3 +1,6 @@
+# Term Project: Trie
+Haskell implementation of trie data structure a.k.a. prefix tree which is a custom tree data structure.
+
 # Bonus 3: Anagrams
 Haskell implementation that solves combinatorial problem of finding all the anagrams of a sentence.
 
